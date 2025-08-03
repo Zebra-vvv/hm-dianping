@@ -23,13 +23,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             response.setStatus(401);
             return false;
         }
-        // 5、存在，保存用户信息到ThreadLocal
-
-        // ✅ 强转为 UserDTO
-        UserDTO userDTO = (UserDTO) user;
-
-        // ✅ 存入 ThreadLocal
-        UserHolder.saveUser(userDTO);
+        // 5、存在，保存用户信息到ThreadLocal，需要强转为 UserDTO 存入 ThreadLocal
+        UserHolder.saveUser((UserDTO) user);
 
         // 6、放行
         return true;

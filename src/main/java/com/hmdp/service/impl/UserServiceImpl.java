@@ -73,12 +73,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             // 6、不存在，创建新用户并保存
             user = createUserWithPhone(phone);
         }
-        // 7、保存用户信息到session中
-
-        // ✅ 转换为 UserDTO
-        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
-
-        session.setAttribute("user", userDTO);
+        // 7、保存用户信息到session中，线强转换为 UserDTO，保证敏感信息安全
+        session.setAttribute("user", BeanUtil.copyProperties(user, UserDTO.class));
 
         return Result.ok();
     }
