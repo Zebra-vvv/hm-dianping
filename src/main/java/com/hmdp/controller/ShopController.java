@@ -61,7 +61,7 @@ public class ShopController {
     public Result updateShop(@RequestBody Shop shop) {
         return shopService.update(shop);
     }
-
+    
     /**
      * 根据商铺类型分页查询商铺信息
      *
