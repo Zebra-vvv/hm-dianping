@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static com.hmdp.utils.RedisConstants.CACHE_SHOP_TTL;
 import static com.hmdp.utils.RedisConstants.CACHE_TYPE_KEY;
 
 /**
@@ -50,8 +48,8 @@ public class ShopTypeServiceImpl extends ServiceImpl<ShopTypeMapper, ShopType> i
         if (shopTypeList == null) {
             return Result.fail("店铺类型不存在！");
         }
-        // 6、数据库存在，写入 redis
-        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(shopTypeList), CACHE_SHOP_TTL, TimeUnit.MINUTES);
+        // 6、数据库存在，写入 redis，商户类型几乎不会变化，可以不设redis ttl
+        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(shopTypeList));
 
         // 7、返回
         return Result.ok(shopTypeList);
